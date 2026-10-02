@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anmeldung — African Youth Voices Essen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --green: #1F5C3B;
+    --green-dark: #163F29;
+    --ochre: #C46A1F;
+    --cream: #FAF6F0;
+    --ink: #20211D;
+    --muted: #5B5C54;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.5;
+  }
+  .hero {
+    background: var(--green);
+    padding: 48px 24px 60px;
+    text-align: left;
+  }
+  .hero-inner, .form-inner { max-width: 560px; margin: 0 auto; }
+  .eyebrow {
+    color: #F4E7D3;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(32px, 7vw, 48px);
+    color: #fff;
+    margin: 0 0 14px;
+    line-height: 1.08;
+  }
+  .hero p { color: #EDE2CE; font-size: 17px; margin: 0; max-width: 46ch; }
+
+  main { padding: 0 24px 64px; margin-top: -32px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(32,33,29,0.08);
+    box-shadow: 0 12px 30px rgba(32,33,29,0.08);
+    padding: 32px 28px;
+  }
+  label { display: block; font-size: 14px; font-weight: 600; margin: 20px 0 6px; }
+  label.first { margin-top: 0; }
+  .hint { font-size: 13px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  input, select, textarea {
+    width: 100%;
+    font: inherit;
+    font-size: 16px;
+    padding: 11px 13px;
+    border: 1.5px solid #D9D4C8;
+    border-radius: 10px;
+    background: var(--cream);
+    color: var(--ink);
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--ochre);
+    outline-offset: 1px;
+    border-color: var(--ochre);
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  .consent { display: flex; gap: 10px; align-items: flex-start; margin-top: 22px; }
+  .consent input { width: auto; margin-top: 3px; }
+  .consent label { margin: 0; font-weight: 400; font-size: 14px; }
+  button {
+    margin-top: 26px;
+    width: 100%;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 18px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  button:hover { background: var(--green-dark); }
+  .footer-note {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 22px;
+  }
+  .honeypot { position: absolute; left: -9999px; }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Jugenddialog · Workshops · Essen</p>
+      <h1>African Youth Voices Essen</h1>
+      <p>Melde dich hier für eine Dialogrunde, die Abschlussveranstaltung an. Kostenlos und offen für alle 12–20-Jährigen in Essen.</p>
+    </div>
+  </div>
+
+  <main>
+    <div class="form-inner">
+      <div class="card">
+        <!-- Replace YOUR_FORM_ID with the id Formspree gives you after you create a form at formspree.io -->
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+          <label class="first" for="name">Vor- und Nachname</label>
+          <input type="text" id="name" name="Name" required>
+
+          <label for="age">Alter</label>
+          <input type="number" id="age" name="Alter" min="10" max="25" required>
+
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="E-Mail" required>
+
+          <label for="phone">Telefon <span class="hint">(optional)</span></label>
+          <input type="tel" id="phone" name="Telefon">
+
+          <label for="session">Woran möchtest du teilnehmen?</label>
+          <select id="session" name="Veranstaltung" required>
+            <option value="">Bitte wählen</option>
+            <option value="Jugenddialog-Runde">Jugenddialog-Runde</option>
+            <option value="Kompetenz-Workshop">Kompetenz-Workshop</option>
+            <option value="Abschlussveranstaltung">Abschlussveranstaltung</option>
+            <option value="Weiß noch nicht">Weiß noch nicht genau</option>
+          </select>
+
+          <label for="notes">Anmerkungen <span class="hint">(optional)</span></label>
+          <textarea id="notes" name="Anmerkungen" placeholder="z. B. Ernährungshinweise, Begleitperson, Fragen"></textarea>
+
+          <!-- spam honeypot: real visitors never fill this in -->
+          <input class="honeypot" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+
+          <div class="consent">
+            <input type="checkbox" id="consent" name="Einverständnis" value="Ja" required>
+            <label for="consent">Ich bin damit einverstanden, dass meine Angaben zur Organisation dieser Veranstaltung durch Sustainable Women for Development e.V. gespeichert und genutzt werden.</label>
+          </div>
+
+          <button type="submit">Anmeldung senden</button>
+        </form>
+      </div>
+      <p class="footer-note">Fragen? info@swod-ev.de · 0175 8617992</p>
+    </div>
+  </main>
+
+</body>
+</html>
