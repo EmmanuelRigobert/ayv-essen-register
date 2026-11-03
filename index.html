@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Anmeldung — African Youth Voices Essen</title>
+<title>Registration — African Youth Voices Essen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Work+Sans:wght@400;500;600;700&display=swap">
 <style>
@@ -98,47 +98,101 @@
     margin-top: 22px;
   }
   .honeypot { position: absolute; left: -9999px; }
+  .success { display: none; text-align: center; padding: 8px 0; }
+  .success h2 { font-family: 'Fraunces', serif; font-size: 28px; margin: 0 0 10px; color: var(--green); }
+  .success p { margin: 0 0 18px; color: var(--muted); }
+  .wa-btn {
+    display: inline-block;
+    background: #25D366;
+    color: #0B3D1E;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 15px 26px;
+    border-radius: 10px;
+  }
+  .wa-btn:hover { background: #1FB958; }
+  .error { display: none; margin-top: 14px; color: #A12B1C; font-size: 14px; text-align: center; }
 </style>
 </head>
 <body>
 
   <div class="hero">
     <div class="hero-inner">
-      <p class="eyebrow">Jugenddialog · Workshops · Essen</p>
+      <p class="eyebrow">Youth Dialogue · Workshops · Essen</p>
       <h1>African Youth Voices Essen</h1>
-      <p>Melde dich hier für eine Dialogrunde/Workshop an. Kostenlos und offen für alle 12–20-Jährigen in Essen.</p>
+      <p>Sign up here for a dialogue/ session. Free and open to everyone.</p>
     </div>
   </div>
 
   <main>
     <div class="form-inner">
       <div class="card">
-        <!-- Replace YOUR_FORM_ID with the id Formspree gives you after you create a form at formspree.io -->
-        <form action="https://formspree.io/f/xvkgjlbe" method="POST">
+        <form id="reg-form" action="https://formspree.io/f/xvkgjlbe" method="POST">
 
-          <label class="first" for="name">Vor- und Nachname</label>
+          <label class="first" for="name">First and last name</label>
           <input type="text" id="name" name="Name" required>
 
-          <label for="age">Alter</label>
-          <input type="number" id="age" name="Alter" min="10" max="25" required>
+          <label for="age">Age</label>
+          <input type="number" id="age" name="Age" step="1" required>
 
-          <label for="email">E-Mail</label>
-          <input type="email" id="email" name="E-Mail" required>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="Email" required>
 
-          <label for="phone">Telefon <span class="hint">(optional)</span></label>
-          <input type="tel" id="phone" name="Telefon">
+          <label for="phone">Phone <span class="hint">(optional)</span></label>
+          <input type="tel" id="phone" name="Phone">
 
           <div class="consent">
-            <input type="checkbox" id="consent" name="Einverständnis" value="Ja" required>
-            <label for="consent">Ich bin damit einverstanden, dass meine Angaben zur Organisation dieser Veranstaltung durch Sustainable Women for Development e.V. gespeichert und genutzt werden.</label>
+            <input type="checkbox" id="consent" name="Consent" value="Yes" required>
+            <label for="consent">I consent to Sustainable Women for Development e.V. storing and using my information to organize this event.</label>
           </div>
 
-          <button type="submit">Anmeldung senden</button>
+          <button type="submit" id="submit-btn">Submit registration</button>
+          <p class="error" id="error-msg" role="alert">Something went wrong. Please try again or email us at info@swod-ev.de.</p>
         </form>
+
+        <div class="success" id="success" role="status" tabindex="-1">
+          <h2>Thank you, you’re registered!</h2>
+          <p>Join our WhatsApp group now to receive all the information and updates.</p>
+          <a class="wa-btn" href="https://chat.whatsapp.com/GoDxov6eyuD6R90pm2glec?s=cl&p=i&mlu=4&ilr=4&iam=2" target="_blank" rel="noopener">Join the WhatsApp group</a>
+        </div>
       </div>
-      <p class="footer-note">Fragen? ndehemmanuel2409@gmail.com · +49 15755784620</p>
+      <p class="footer-note">Questions? ndehemmanuel2409@gmail.com · +49 15755784620</p>
     </div>
   </main>
+
+  <script>
+    // Sends the form to Formspree in the background, then shows the WhatsApp button on success.
+    const form = document.getElementById('reg-form');
+    const btn = document.getElementById('submit-btn');
+    const err = document.getElementById('error-msg');
+    const ok = document.getElementById('success');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          ok.style.display = 'block';
+          ok.focus();
+        } else {
+          throw new Error('bad response');
+        }
+      } catch (_) {
+        err.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit registration';
+      }
+    });
+  </script>
 
 </body>
 </html>
